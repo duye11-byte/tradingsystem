@@ -1,0 +1,118 @@
+# 特征工程层配置
+# Feature Engineering Layer Configuration
+
+feature_engineering:
+  # 技术特征配置
+  technical:
+    enabled: true
+    indicators:
+      # 趋势指标
+      - sma
+      - ema
+      # 动量指标
+      - rsi
+      - macd
+      - stochastic
+      - williams_r
+      - cci
+      # 波动率指标
+      - bollinger_bands
+      - atr
+      # 成交量指标
+      - obv
+      - mfi
+      # 趋势强度
+      - adx
+    
+    periods:
+      sma: [20, 50, 200]
+      ema: [12, 26, 50]
+      rsi: [7, 14]
+      macd: {fast: 12, slow: 26, signal: 9}
+      bollinger: {period: 20, std_dev: 2}
+      atr: [7, 14]
+      adx: 14
+    
+    timeframes: ['1h', '4h', '1d']
+  
+  # 链上特征配置
+  onchain:
+    enabled: true
+    metrics:
+      - exchange_flow        # 交易所资金流向
+      - whale_activity       # 鲸鱼活动
+      - network_activity     # 网络活跃度
+      - supply_distribution  # 供应分布
+      - miner_metrics        # 矿工指标
+      - network_health       # 网络健康
+    
+    # 鲸鱼阈值 (BTC)
+    whale_threshold: 1000
+    
+    # 交易所列表
+    exchanges:
+      - binance
+      - coinbase
+      - kraken
+      - okx
+  
+  # 情绪特征配置
+  sentiment:
+    enabled: true
+    sources:
+      - fear_greed_index     # 恐惧贪婪指数
+      - social_media         # 社交媒体
+      - news                 # 新闻情绪
+      - futures              # 期货指标
+      - options              # 期权指标
+    
+    # 社交媒体平台
+    platforms:
+      - twitter
+      - reddit
+      - telegram
+    
+    # 新闻源
+    news_sources:
+      - coindesk
+      - cointelegraph
+      - decrypt
+  
+  # 组合特征配置
+  composite:
+    enabled: true
+    methods:
+      - pca                  # 主成分分析
+      - ts_decomposition     # 时间序列分解
+      - feature_interactions # 特征交互
+      - composite_indicators # 综合指标
+    
+    pca:
+      n_components: 3
+      explained_variance_threshold: 0.8
+  
+  # 通用配置
+  general:
+    # 回看周期数
+    lookback_periods: 100
+    
+    # 是否标准化
+    normalize: true
+    
+    # 缺失值处理
+    fill_missing: true
+    missing_strategy: 'forward_fill'  # forward_fill, mean, zero
+    
+    # 历史缓存大小
+    history_size: 100
+  
+  # 性能配置
+  performance:
+    # 批量处理大小
+    batch_size: 10
+    
+    # 最大并发数
+    max_concurrency: 5
+    
+    # 缓存过期时间 (秒)
+    cache_ttl: 300
