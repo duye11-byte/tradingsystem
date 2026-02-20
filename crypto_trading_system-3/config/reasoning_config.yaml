@@ -1,0 +1,82 @@
+# 推理层配置
+# Reasoning Layer Configuration for OpenClaw Crypto Trading System
+
+reasoning_engine:
+  # LLM 客户端配置（可选，用于高级推理）
+  llm_client:
+    provider: "openai"  # openai, anthropic, local
+    model: "gpt-4"
+    temperature: 0.3
+    max_tokens: 2000
+    timeout: 30
+  
+  # Chain-of-Thought 配置
+  cot_config:
+    max_steps: 7
+    min_confidence: 0.6
+    temperature: 0.3
+    enable_streaming: true
+  
+  # 多模型集成配置
+  ensemble_config:
+    consensus_threshold: 0.6
+    min_agreement_ratio: 0.5
+    voting_method: "weighted"  # weighted, majority, average
+    
+    # 专家代理配置
+    agents:
+      - name: "technical_analyst"
+        weight: 0.35
+        confidence_threshold: 0.65
+        enabled: true
+        
+      - name: "onchain_analyst"
+        weight: 0.25
+        confidence_threshold: 0.60
+        enabled: true
+        
+      - name: "sentiment_analyst"
+        weight: 0.20
+        confidence_threshold: 0.55
+        enabled: true
+        
+      - name: "macro_analyst"
+        weight: 0.20
+        confidence_threshold: 0.55
+        enabled: true
+  
+  # 自我一致性验证配置
+  consistency_config:
+    num_samples: 5
+    consistency_threshold: 0.7
+    confidence_threshold: 0.6
+    variance_threshold: 0.3
+    enable_trend_tracking: true
+
+# 信号生成配置
+signal_generation:
+  # 信号阈值
+  signal_thresholds:
+    strong_buy: 1.5
+    buy: 0.5
+    hold: -0.5
+    sell: -1.5
+  
+  # 仓位管理
+  position_sizing:
+    max_position_size: 1.0  # 最大仓位比例
+    risk_adjustment: true   # 根据风险调整仓位
+    confidence_scaling: true  # 根据置信度调整仓位
+  
+  # 止损止盈配置
+  risk_management:
+    stop_loss_atr_multiplier: 2.0
+    take_profit_atr_multiplier: 3.0
+    max_risk_per_trade: 0.02  # 每笔交易最大风险比例
+
+# 性能监控
+monitoring:
+  enable_metrics: true
+  log_level: "INFO"
+  performance_tracking: true
+  validation_history_size: 100

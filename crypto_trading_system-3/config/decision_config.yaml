@@ -1,0 +1,75 @@
+# 决策层配置
+# Decision Layer Configuration
+
+decision_engine:
+  # 信号配置
+  signal:
+    min_confidence: 0.6                    # 最小置信度
+    min_consistency_score: 0.7             # 最小一致性分数
+    signal_validity_minutes: 60            # 信号有效期 (分钟)
+  
+  # 仓位配置
+  position:
+    max_position_size: 1.0                 # 最大仓位比例 (相对于总权益)
+    default_position_size: 0.1             # 默认仓位比例
+    max_concurrent_positions: 5            # 最大同时持仓数
+  
+  # 风险管理配置
+  risk:
+    max_risk_per_trade: 0.02               # 单笔交易最大风险 (2%)
+    max_daily_risk: 0.05                   # 日最大风险 (5%)
+    max_drawdown: 0.15                     # 最大回撤 (15%)
+    
+    # 风险收益比要求
+    min_risk_reward_ratio: 1.5             # 最小风险收益比
+  
+  # 止损止盈配置
+  stop_loss_take_profit:
+    default_stop_loss_pct: 0.02            # 默认止损比例 (2%)
+    default_take_profit_pct: 0.04          # 默认止盈比例 (4%)
+    
+    # 追踪止损
+    trailing_stop_enabled: true
+    trailing_stop_distance: 0.015          # 追踪止损距离 (1.5%)
+    
+    # 动态止损
+    dynamic_stop_enabled: true
+    atr_multiplier: 2.0                    # ATR倍数
+  
+  # 执行配置
+  execution:
+    strategy: "smart"                      # 执行策略: immediate, twap, vwap, iceberg, smart
+    max_slippage: 0.001                    # 最大滑点 (0.1%)
+    order_timeout_seconds: 300             # 订单超时时间 (秒)
+    
+    # TWAP配置
+    twap:
+      num_slices: 5                        # 切片数量
+      duration_minutes: 30                 # 执行时长 (分钟)
+    
+    # 冰山订单配置
+    iceberg:
+      visible_ratio: 0.1                   # 显示比例
+  
+  # 手续费配置
+  fees:
+    maker_fee: 0.001                       # Maker手续费 (0.1%)
+    taker_fee: 0.001                       # Taker手续费 (0.1%)
+    
+  # 订单配置
+  order:
+    default_order_type: "market"           # 默认订单类型
+    allow_market_orders: true              # 允许市价单
+    allow_limit_orders: true               # 允许限价单
+    
+  # 监控配置
+  monitoring:
+    check_interval_seconds: 5              # 检查间隔 (秒)
+    price_update_interval_seconds: 1       # 价格更新间隔 (秒)
+    
+  # 模拟配置
+  simulation:
+    enabled: true                          # 启用模拟模式
+    fill_delay_seconds: 0.3                # 模拟成交延迟
+    slippage_model: "fixed"                # 滑点模型: fixed, percentage, volume_based
+    slippage_value: 0.001                  # 滑点值
