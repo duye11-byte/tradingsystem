@@ -1,0 +1,15 @@
+{
+  "id": "test_sample_001",
+  "features": {
+    "test": 1.0
+  },
+  "predicted_signal": "buy",
+  "predicted_confidence": 0.8,
+  "actual_result": "win",
+  "actual_pnl": 0.05,
+  "reward": 0.05,
+  "human_rating": null,
+  "timestamp": "2026-02-21T09:07:13.776710",
+  "status": "pending",
+  "metadata": {}
+}

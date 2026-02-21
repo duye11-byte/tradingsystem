@@ -1,0 +1,11 @@
+{
+  "id": "test_feedback_001",
+  "trade_id": null,
+  "decision_id": null,
+  "signal_id": null,
+  "rating": 4,
+  "comment": "\u6d4b\u8bd5\u53cd\u9988",
+  "feedback_type": "human_rating",
+  "timestamp": "2026-02-21T09:07:13.767241",
+  "metadata": {}
+}

@@ -1,0 +1,51 @@
+# 反馈层配置
+
+# 反馈模式: auto, semi_auto, manual
+mode: auto
+
+# 分析间隔（秒）
+analysis_interval: 3600
+
+# 学习间隔（秒）
+learning_interval: 1800
+
+# 学习所需最小样本数
+min_samples_for_learning: 10
+
+# 自动应用更新
+auto_apply_updates: true
+
+# 告警阈值
+alert_thresholds:
+  max_drawdown: 0.15        # 最大回撤阈值
+  min_sharpe: 1.0           # 最小夏普比率
+  min_win_rate: 0.45        # 最小胜率
+
+# 存储配置
+storage:
+  data_dir: "./feedback_data"
+  auto_save: true
+  save_interval: 300
+
+# 性能分析配置
+performance_analysis:
+  risk_free_rate: 0.02      # 无风险利率
+  trading_days_per_year: 365
+  
+# 在线学习配置
+online_learning:
+  learning_rate: 0.01
+  confidence_learning_rate: 0.005
+  min_confidence: 0.3
+  max_confidence: 0.95
+  
+# RLHF配置
+rlhf:
+  reward_model:
+    hidden_dim: 128
+    learning_rate: 0.001
+    epochs: 50
+  policy:
+    learning_rate: 0.0001
+    clip_epsilon: 0.2
+    epochs: 50
