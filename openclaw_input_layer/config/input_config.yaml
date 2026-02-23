@@ -1,0 +1,211 @@
+# OpenClaw 输入层配置文件
+# 第1层：多源数据融合与实时数据流处理
+
+version: "1.0.0"
+
+# ==================== 引擎配置 ====================
+engine:
+  # 运行模式: realtime, polling, hybrid, backtest
+  mode: hybrid
+  
+  # 默认交易对
+  default_symbols:
+    - BTCUSDT
+    - ETHUSDT
+    - SOLUSDT
+    - BNBUSDT
+  
+  # 默认数据类型
+  default_data_types:
+    - price
+    - sentiment
+  
+  # 缓存配置
+  cache:
+    enabled: true
+    ttl: 60  # 秒
+  
+  # 验证配置
+  validation:
+    enabled: true
+    zscore_threshold: 3.0
+    mad_threshold: 3.5
+  
+  # 容错配置
+  fallback:
+    enabled: true
+    max_retries: 3
+    retry_delay: 1.0  # 秒
+
+# ==================== 价格数据源配置 ====================
+price_sources:
+  binance:
+    enabled: true
+    type: websocket
+    api_key: ""  # 可选，用于更高频率限制
+    api_secret: ""  # 可选
+    use_testnet: false
+    websocket_url: "wss://stream.binance.com:9443/ws"
+    rest_base_url: "https://api.binance.com"
+    futures_base_url: "https://fapi.binance.com"
+    reconnect_interval: 5  # 秒
+    streams:
+      - "kline_1m"
+      - "depth20@100ms"
+      - "aggTrade"
+    rate_limit: 0.1  # 秒
+    timeout: 30
+  
+  coingecko:
+    enabled: true
+    type: rest
+    api_key: ""  # 可选，Pro版需要
+    base_url: "https://api.coingecko.com/api/v3"
+    pro_url: "https://pro-api.coingecko.com/api/v3"
+    rate_limit: 25.0  # 秒（免费版限制）
+    timeout: 30
+    use_pro: false
+
+# ==================== 链上数据源配置 ====================
+onchain_sources:
+  dune:
+    enabled: true
+    type: graphql
+    api_key: ""  # 可选
+    base_url: "https://core-api.dune.com/public"
+    graphql_url: "https://core-api.dune.com/public/graphql"
+    rate_limit: 5.0  # 秒
+    timeout: 60
+    queries:
+      btc_exchange_flows:
+        query_id: "3940735"
+        refresh: "1h"
+      holder_behavior:
+        query_id: "2453981"
+        refresh: "4h"
+      stablecoin_reserves:
+        query_id: "2893922"
+        refresh: "30m"
+  
+  defillama:
+    enabled: true
+    type: rest
+    base_url: "https://api.llama.fi"
+    yields_url: "https://yields.llama.fi"
+    stablecoins_url: "https://stablecoins.llama.fi"
+    rate_limit: 0.5  # 秒
+    timeout: 30
+  
+  arkham:
+    enabled: false  # 需要API key
+    type: rest
+    api_key: ""
+    base_url: "https://api.arkhamintelligence.com"
+    rate_limit: 10.0  # 秒
+    timeout: 30
+
+# ==================== 情绪数据源配置 ====================
+sentiment_sources:
+  alternative_me:
+    enabled: true
+    type: rest
+    base_url: "https://api.alternative.me/fng"
+    rate_limit: 3600.0  # 秒（实际日更）
+    timeout: 30
+    alerts:
+      extreme_fear: 25
+      extreme_greed: 75
+  
+  coinalyze:
+    enabled: true
+    type: rest
+    api_key: ""  # 可选
+    base_url: "https://api.coinalyze.net/v1"
+    rate_limit: 1.0  # 秒
+    timeout: 30
+    symbols:
+      - BTCUSDT_PERP
+      - ETHUSDT_PERP
+  
+  binance_sentiment:
+    enabled: true
+    type: rest
+    base_url: "https://fapi.binance.com/futures/data"
+    rate_limit: 0.2  # 秒
+    timeout: 30
+
+# ==================== 新闻数据源配置 ====================
+news_sources:
+  cryptopanic:
+    enabled: true
+    type: rest
+    api_key: ""  # 免费注册获取
+    base_url: "https://cryptopanic.com/api/v1"
+    rate_limit: 5.0  # 秒
+    timeout: 30
+    filters:
+      currencies: "BTC,ETH,SOL"
+      kind: "news"
+  
+  newsdata:
+    enabled: false  # 需要API key
+    api_key: ""
+    base_url: "https://newsdata.io/api/1"
+    rate_limit: 432.0  # 秒（200 req/day）
+    timeout: 30
+  
+  reddit:
+    enabled: false  # 需要API凭证
+    client_id: ""
+    client_secret: ""
+    user_agent: "OpenClaw-Trading-System/1.0"
+    username: ""
+    password: ""
+    rate_limit: 1.0  # 秒
+    subreddits:
+      - BitcoinMarkets
+      - CryptoCurrency
+      - Solana
+
+# ==================== 数据质量配置 ====================
+data_quality:
+  # 异常检测
+  anomaly_detection:
+    enabled: true
+    method: zscore  # zscore, iqr, mad
+    zscore_threshold: 3.0
+    iqr_multiplier: 1.5
+    mad_threshold: 3.5
+  
+  # 数据验证规则
+  validation_rules:
+    - name: price_not_zero
+      check: price > 0
+      critical: true
+    
+    - name: timestamp_valid
+      check: timestamp_not_future_and_not_stale
+      critical: true
+    
+    - name: volume_positive
+      check: volume >= 0
+      critical: false
+    
+    - name: ohlc_logic
+      check: high >= max(open, close) and low <= min(open, close)
+      critical: true
+
+# ==================== 监控配置 ====================
+monitoring:
+  # 健康检查
+  health_check:
+    enabled: true
+    interval: 60  # 秒
+  
+  # 统计报告
+  stats_report:
+    enabled: true
+    interval: 300  # 秒
+  
+  # 日志级别
+  log_level: INFO
