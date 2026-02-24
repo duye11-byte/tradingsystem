@@ -1,0 +1,89 @@
+# OpenClaw 多时间框架趋势动量策略配置
+# MTF-Momentum Strategy Configuration
+
+strategy:
+  name: "MTF_Momentum_Strategy"
+  version: "1.0.0"
+  description: "多时间框架趋势动量策略 - 结合趋势跟踪、动量确认和情绪过滤"
+
+# 交易对配置
+symbols:
+  - BTCUSDT
+  - ETHUSDT
+  - SOLUSDT
+  - BNBUSDT
+  - ADAUSDT
+
+# 时间框架配置
+timeframes:
+  confirmation: "1h"      # 趋势确认时间框架
+  primary: "15m"          # 主要交易时间框架
+  entry: "5m"             # 精确入场时间框架
+
+# 趋势指标参数
+trend:
+  ema_fast: 9
+  ema_slow: 21
+  ema_trend: 50
+  ema_long: 200
+  adx_period: 14
+  adx_threshold: 25.0     # ADX > 25 认为有趋势
+
+# 动量指标参数
+momentum:
+  rsi_period: 14
+  rsi_overbought: 70.0
+  rsi_oversold: 30.0
+  macd_fast: 12
+  macd_slow: 26
+  macd_signal: 9
+
+# 波动率指标参数
+volatility:
+  atr_period: 14
+  atr_multiplier_sl: 2.0      # 止损倍数
+  atr_multiplier_tp1: 2.5     # 止盈1倍数
+  atr_multiplier_tp2: 4.0     # 止盈2倍数
+  atr_multiplier_tp3: 6.0     # 止盈3倍数
+  bollinger_period: 20
+  bollinger_std: 2.0
+
+# 信号过滤参数
+signal_filter:
+  min_confidence: 65.0        # 最小置信度
+  min_score: 6.0              # 最小评分
+  use_sentiment_filter: true  # 使用情绪过滤
+  fear_greed_threshold: 20    # 恐惧贪婪指数阈值
+
+# 风险管理参数
+risk_management:
+  max_position_size: 0.10     # 最大仓位占账户比例
+  max_leverage: 5.0           # 最大杠杆
+  risk_per_trade: 0.01        # 每笔交易风险占账户比例
+  max_daily_loss: 0.03        # 每日最大亏损比例
+  max_positions: 5            # 最大同时持仓数
+
+# 追踪止损配置
+trailing_stop:
+  enabled: true
+  activation_percent: 1.5     # 盈利1.5%激活
+  trailing_distance: 1.0      # 距离最高点1%
+
+# 部分止盈配置
+partial_take_profit:
+  tp1_size: 0.30              # 30%仓位在TP1平仓
+  tp2_size: 0.30              # 30%仓位在TP2平仓
+  tp3_size: 0.40              # 40%仓位在TP3平仓
+
+# 回测配置
+backtest:
+  initial_capital: 10000.0
+  commission_rate: 0.0004     # 0.04% 币安手续费
+  slippage: 0.0001            # 滑点
+
+# 实盘交易配置
+live_trading:
+  paper_trading: true         # 默认模拟交易
+  auto_execute: false         # 自动执行开关
+  max_orders_per_minute: 10   # 每分钟最大订单数
+  order_timeout_seconds: 30   # 订单超时时间

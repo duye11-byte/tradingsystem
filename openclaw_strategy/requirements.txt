@@ -1,0 +1,32 @@
+# OpenClaw 策略系统依赖
+
+# 数据处理
+numpy>=1.21.0
+pandas>=1.3.0
+
+# 科学计算
+scipy>=1.7.0
+
+# 配置解析
+pyyaml>=5.4.0
+
+# 时间处理
+python-dateutil>=2.8.0
+
+# 可选: 数据获取
+# ccxt>=3.0.0          # 交易所API
+# aiohttp>=3.8.0       # 异步HTTP
+# websockets>=10.0     # WebSocket
+
+# 可选: 可视化
+# matplotlib>=3.4.0
+# plotly>=5.0.0
+
+# 可选: 数据库
+# sqlalchemy>=1.4.0
+# redis>=4.0.0
+
+# 开发工具
+pytest>=6.2.0
+black>=21.0.0
+flake8>=3.9.0
