@@ -9,7 +9,8 @@ import {
   Database, 
   FileText, 
   Settings,
-  TrendingUp
+  TrendingUp,
+  Brain
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -20,6 +21,7 @@ const navItems = [
   { path: '/orders', label: '订单管理', icon: ListOrdered },
   { path: '/positions', label: '仓位管理', icon: Wallet },
   { path: '/risk', label: '风险管理', icon: Shield },
+  { path: '/strategy', label: '策略管理', icon: Brain },
   { path: '/datasources', label: '数据源', icon: Database },
   { path: '/logs', label: '系统日志', icon: FileText },
   { path: '/settings', label: '设置', icon: Settings },

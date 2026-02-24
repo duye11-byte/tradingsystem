@@ -10,6 +10,7 @@ import { Risk } from '@/pages/Risk';
 import { DataSources } from '@/pages/DataSources';
 import { Logs } from '@/pages/Logs';
 import { Settings } from '@/pages/Settings';
+import Strategy from '@/pages/Strategy';
 
 function App() {
   return (
@@ -29,6 +30,7 @@ function App() {
               <Route path="/orders" element={<Orders />} />
               <Route path="/positions" element={<Positions />} />
               <Route path="/risk" element={<Risk />} />
+              <Route path="/strategy" element={<Strategy />} />
               <Route path="/datasources" element={<DataSources />} />
               <Route path="/logs" element={<Logs />} />
               <Route path="/settings" element={<Settings />} />
