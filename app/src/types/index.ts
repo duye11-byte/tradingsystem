@@ -1,135 +1,245 @@
-// OpenClaw Trading System Types
-
-export interface MarketData {
-  symbol: string;
-  price: number;
-  priceChange24h: number;
-  priceChangePercent24h: number;
-  volume24h: number;
-  high24h: number;
-  low24h: number;
-  timestamp: string;
+// 策略相关类型
+export interface Strategy {
+  id: string;
+  name: string;
+  description: string;
+  type: 'trend_following' | 'mean_reversion' | 'breakout' | 'scalping' | 'custom';
+  createdAt: Date;
+  updatedAt: Date;
+  isActive: boolean;
+  parameters: StrategyParameters;
+  rules: TradeRules;
+  performance?: StrategyPerformance;
+  source: 'imported' | 'manual' | 'ai_generated';
 }
 
-export interface OrderBook {
+export interface StrategyParameters {
+  entryConditions: Condition[];
+  exitConditions: Condition[];
+  riskManagement: RiskParameters;
+  indicators: IndicatorConfig[];
+}
+
+export interface Condition {
+  id: string;
+  indicator: string;
+  operator: '>' | '<' | '==' | '>=' | '<=' | 'crosses_above' | 'crosses_below';
+  value: number | string;
+  timeframe: string;
+}
+
+export interface RiskParameters {
+  maxPositionSize: number; // 百分比
+  stopLossPercent: number;
+  takeProfitPercent: number;
+  maxDailyLoss: number;
+  maxDrawdownPercent: number;
+  useTrailingStop: boolean;
+  trailingStopPercent?: number;
+}
+
+export interface IndicatorConfig {
+  name: string;
+  parameters: Record<string, number>;
+  timeframe: string;
+}
+
+export interface TradeRules {
+  longEntry: string[];
+  shortEntry: string[];
+  exitLong: string[];
+  exitShort: string[];
+}
+
+export interface StrategyPerformance {
+  totalReturn: number;
+  winRate: number;
+  profitFactor: number;
+  maxDrawdown: number;
+  sharpeRatio: number;
+  totalTrades: number;
+  averageTrade: number;
+  lastBacktestDate?: Date;
+}
+
+// 回测相关类型
+export interface BacktestConfig {
+  startDate: Date;
+  endDate: Date;
+  initialCapital: number;
+  tradingFee: number; // 百分比
+  slippage: number; // 百分比
   symbol: string;
-  bids: [number, number][]; // [price, quantity]
-  asks: [number, number][];
-  timestamp: string;
+  timeframe: string;
+}
+
+export interface BacktestResult {
+  id: string;
+  strategyId: string;
+  config: BacktestConfig;
+  trades: Trade[];
+  equityCurve: EquityPoint[];
+  metrics: BacktestMetrics;
+  completedAt: Date;
 }
 
 export interface Trade {
   id: string;
-  symbol: string;
-  side: 'buy' | 'sell';
-  price: number;
-  quantity: number;
-  total: number;
-  timestamp: string;
-}
-
-export interface TradingSignal {
-  id: string;
-  symbol: string;
-  type: 'BUY' | 'SELL' | 'HOLD';
-  confidence: number;
+  entryTime: Date;
+  exitTime?: Date;
   entryPrice: number;
-  stopLoss: number;
-  takeProfit: number;
-  reasoning: string;
-  timestamp: string;
-  status: 'active' | 'executed' | 'expired' | 'cancelled';
-}
-
-export interface Order {
-  id: string;
-  symbol: string;
-  side: 'buy' | 'sell';
-  type: 'market' | 'limit' | 'stop_loss' | 'take_profit';
-  status: 'pending' | 'filled' | 'partially_filled' | 'cancelled' | 'rejected';
-  price: number;
-  quantity: number;
-  filledQuantity: number;
-  remainingQuantity: number;
-  total: number;
-  timestamp: string;
-  updatedAt: string;
-}
-
-export interface Position {
-  id: string;
-  symbol: string;
+  exitPrice?: number;
   side: 'long' | 'short';
-  entryPrice: number;
-  currentPrice: number;
-  quantity: number;
-  leverage: number;
-  margin: number;
+  size: number;
   pnl: number;
   pnlPercent: number;
-  liquidationPrice: number;
-  timestamp: string;
+  status: 'open' | 'closed';
+  exitReason?: string;
 }
 
-export interface RiskSettings {
-  maxPositionSize: number;
-  maxLeverage: number;
-  stopLossPercent: number;
-  takeProfitPercent: number;
-  maxDailyLoss: number;
-  maxDrawdown: number;
-  riskPerTrade: number;
+export interface EquityPoint {
+  timestamp: Date;
+  equity: number;
+  drawdown: number;
 }
 
-export interface DataSource {
-  id: string;
-  name: string;
-  type: 'price' | 'onchain' | 'sentiment' | 'news';
-  status: 'active' | 'inactive' | 'error';
-  lastUpdate: string;
-  latency: number;
-  errorRate: number;
-  config: Record<string, any>;
-}
-
-export interface SystemLog {
-  id: string;
-  level: 'info' | 'warning' | 'error' | 'debug';
-  message: string;
-  source: string;
-  timestamp: string;
-  metadata?: Record<string, any>;
-}
-
-export interface PerformanceMetrics {
+export interface BacktestMetrics {
+  totalReturn: number;
   totalTrades: number;
   winningTrades: number;
   losingTrades: number;
   winRate: number;
-  totalPnl: number;
-  dailyPnl: number;
-  weeklyPnl: number;
-  monthlyPnl: number;
-  sharpeRatio: number;
+  averageWin: number;
+  averageLoss: number;
+  profitFactor: number;
   maxDrawdown: number;
-  avgTradeDuration: number;
+  maxDrawdownPercent: number;
+  sharpeRatio: number;
+  sortinoRatio: number;
+  calmarRatio: number;
+  averageTrade: number;
+  averageTradePercent: number;
 }
 
-export interface SentimentData {
+// AI分析相关类型
+export interface AIStrategyAnalysis {
+  strategyId: string;
+  overallScore: number; // 0-100
+  strengths: StrategyStrength[];
+  weaknesses: StrategyWeakness[];
+  recommendations: string[];
+  extractedPatterns: Pattern[];
+  comparableStrategies: string[];
+  integrationPotential: IntegrationPotential;
+}
+
+export interface StrategyStrength {
+  aspect: string;
+  score: number;
+  description: string;
+  evidence: string[];
+}
+
+export interface StrategyWeakness {
+  aspect: string;
+  severity: 'low' | 'medium' | 'high';
+  description: string;
+  suggestion: string;
+}
+
+export interface Pattern {
+  type: 'entry' | 'exit' | 'risk' | 'indicator';
+  description: string;
+  effectiveness: number;
+  conditions: string[];
+}
+
+export interface IntegrationPotential {
+  score: number; // 0-100
+  compatibleStrategies: string[];
+  suggestedIntegrations: SuggestedIntegration[];
+}
+
+export interface SuggestedIntegration {
+  targetStrategyId: string;
+  targetStrategyName: string;
+  integrationType: 'entry' | 'exit' | 'risk' | 'indicator';
+  description: string;
+  expectedImprovement: number;
+  confidence: number;
+}
+
+// AI代理状态
+export interface AIAgentState {
+  isRunning: boolean;
+  currentTask?: string;
+  progress: number;
+  lastAnalysis?: AIStrategyAnalysis;
+  pendingStrategies: string[];
+  analyzedStrategies: string[];
+  integratedStrategies: string[];
+}
+
+// 策略集成结果
+export interface StrategyIntegration {
+  id: string;
+  sourceStrategyId: string;
+  targetStrategyId: string;
+  integratedAt: Date;
+  integrationType: 'entry' | 'exit' | 'risk' | 'indicator' | 'full';
+  changes: IntegrationChange[];
+  beforePerformance: StrategyPerformance;
+  afterPerformance: StrategyPerformance;
+  improvement: number;
+  aiNotes: string;
+}
+
+export interface IntegrationChange {
+  field: string;
+  oldValue: any;
+  newValue: any;
+  reason: string;
+}
+
+// 市场数据
+export interface MarketData {
   symbol: string;
-  fearGreedIndex: number;
-  fearGreedClassification: string;
-  fundingRate: number;
-  longShortRatio: number;
-  liquidationVolume: number;
-  timestamp: string;
+  timestamp: Date;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+  volume: number;
 }
 
+// 用户设置
 export interface UserSettings {
-  apiKey: string;
-  apiSecret: string;
-  testnet: boolean;
-  defaultLeverage: number;
-  notifications: boolean;
-  theme: 'light' | 'dark';
+  apiKeys: Record<string, string>;
+  notifications: NotificationSettings;
+  riskDefaults: RiskParameters;
+  aiPreferences: AIPreferences;
+}
+
+export interface NotificationSettings {
+  email: boolean;
+  push: boolean;
+  tradeAlerts: boolean;
+  backtestComplete: boolean;
+  aiRecommendations: boolean;
+}
+
+export interface AIPreferences {
+  autoBacktest: boolean;
+  autoIntegrate: boolean;
+  minScoreForIntegration: number;
+  maxIntegrationPerDay: number;
+  preferredIntegrationType: 'conservative' | 'balanced' | 'aggressive';
+}
+
+// 系统状态
+export interface SystemState {
+  isLoading: boolean;
+  error: string | null;
+  connected: boolean;
+  lastSync: Date;
 }
