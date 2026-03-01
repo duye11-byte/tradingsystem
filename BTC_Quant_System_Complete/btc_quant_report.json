@@ -1,0 +1,257 @@
+{
+  "data_period": {
+    "start": "2022-01-01 00:00:00",
+    "end": "2026-02-28 00:00:00",
+    "days": 1520
+  },
+  "initial_capital": 100000,
+  "total_strategies": 17,
+  "all_results": {
+    "趋势跟踪策略": {
+      "total_return": -0.3669602099078189,
+      "annual_return": -0.10398080264181042,
+      "max_drawdown": 0.40746091831049397,
+      "sharpe_ratio": -0.5323659915788824,
+      "sortino_ratio": -0.03930459308670734,
+      "win_rate": 0.0,
+      "total_trades": 2,
+      "profit_factor": 0.0,
+      "avg_holding_time": 72.0
+    },
+    "MACD策略": {
+      "total_return": 0.2805649282935576,
+      "annual_return": 0.06118356824962978,
+      "max_drawdown": 0.12531296933631472,
+      "sharpe_ratio": 0.5245340878762907,
+      "sortino_ratio": 0.1704489108497881,
+      "win_rate": 0.6,
+      "total_trades": 5,
+      "profit_factor": 5.517486467840461,
+      "avg_holding_time": 134.4
+    },
+    "RSI策略": {
+      "total_return": 0.20402625831887605,
+      "annual_return": 0.04559437939175748,
+      "max_drawdown": 0.0613983212134699,
+      "sharpe_ratio": 0.5417565126924593,
+      "sortino_ratio": 0.17696837851010713,
+      "win_rate": 0.6,
+      "total_trades": 5,
+      "profit_factor": 7.948315783361696,
+      "avg_holding_time": 148.8
+    },
+    "布林带策略": {
+      "total_return": 0.16066800069216172,
+      "annual_return": 0.036426328502223715,
+      "max_drawdown": 0.07392975369957723,
+      "sharpe_ratio": 0.3854912732022155,
+      "sortino_ratio": 0.10263591210820511,
+      "win_rate": 0.4,
+      "total_trades": 5,
+      "profit_factor": 5.213817731161585,
+      "avg_holding_time": 172.8
+    },
+    "均值回归策略": {
+      "total_return": -0.1589285788816173,
+      "annual_return": -0.04070981743798463,
+      "max_drawdown": 0.2421033007961903,
+      "sharpe_ratio": -0.38709134889582164,
+      "sortino_ratio": -0.051702558060253125,
+      "win_rate": 0.2,
+      "total_trades": 5,
+      "profit_factor": 0.2956873416193318,
+      "avg_holding_time": 139.2
+    },
+    "突破策略": {
+      "total_return": -0.015465266974604456,
+      "annual_return": -0.003735719972960627,
+      "max_drawdown": 0.17618038305378228,
+      "sharpe_ratio": -0.002448045701946694,
+      "sortino_ratio": -0.0006957479197425799,
+      "win_rate": 0.4,
+      "total_trades": 5,
+      "profit_factor": 0.8984075167028803,
+      "avg_holding_time": 139.2
+    },
+    "超级趋势策略": {
+      "total_return": 1.2474897637499718,
+      "annual_return": 0.21465720155787826,
+      "max_drawdown": 0.21475602548140388,
+      "sharpe_ratio": 0.7205376144669984,
+      "sortino_ratio": 0.2639682912956292,
+      "win_rate": 0.6,
+      "total_trades": 5,
+      "profit_factor": 4.354761581547376,
+      "avg_holding_time": 307.2
+    },
+    "一目均衡表策略": {
+      "total_return": 0.25656067345383127,
+      "annual_return": 0.0563724872914424,
+      "max_drawdown": 0.1254864009636169,
+      "sharpe_ratio": 0.491294988701909,
+      "sortino_ratio": 0.11175396051754703,
+      "win_rate": 0.6,
+      "total_trades": 5,
+      "profit_factor": 2.6339185365205715,
+      "avg_holding_time": 129.6
+    },
+    "随机指标策略": {
+      "total_return": 0.002574316451295745,
+      "annual_return": 0.0006175709669549168,
+      "max_drawdown": 0.09972747175044762,
+      "sharpe_ratio": 0.03035250199896872,
+      "sortino_ratio": 0.005765217917561,
+      "win_rate": 0.4,
+      "total_trades": 5,
+      "profit_factor": 1.0474258468917934,
+      "avg_holding_time": 158.4
+    },
+    "成交量突破策略": {
+      "total_return": -0.06402000760917421,
+      "annual_return": -0.015761849385325988,
+      "max_drawdown": 0.11521621343918259,
+      "sharpe_ratio": -0.23963476124092414,
+      "sortino_ratio": -0.036380389890220584,
+      "win_rate": 0.4,
+      "total_trades": 5,
+      "profit_factor": 0.13348079626588522,
+      "avg_holding_time": 120.0
+    },
+    "动量策略": {
+      "total_return": 0.19296885827623816,
+      "annual_return": 0.043280448049287656,
+      "max_drawdown": 0.11988401389973743,
+      "sharpe_ratio": 0.34658670293048405,
+      "sortino_ratio": 0.10069074092852826,
+      "win_rate": 0.6,
+      "total_trades": 5,
+      "profit_factor": 3.5238749238968055,
+      "avg_holding_time": 96.0
+    },
+    "链上资金流向策略": {
+      "total_return": -0.0004553911865026748,
+      "annual_return": -0.00010937272996169867,
+      "max_drawdown": 0.061350031552588905,
+      "sharpe_ratio": 0.02115859214135813,
+      "sortino_ratio": 0.0035309159236373727,
+      "win_rate": 0.6,
+      "total_trades": 5,
+      "profit_factor": 0.9836135526118862,
+      "avg_holding_time": 153.6
+    },
+    "矿工持仓策略": {
+      "total_return": 0,
+      "annual_return": 0,
+      "max_drawdown": 0,
+      "sharpe_ratio": 0,
+      "sortino_ratio": 0,
+      "win_rate": 0,
+      "total_trades": 0,
+      "profit_factor": 0,
+      "avg_holding_time": 0
+    },
+    "MVRV策略": {
+      "total_return": 5.433994637727622,
+      "annual_return": 0.5636579086004772,
+      "max_drawdown": 0.09453843813063594,
+      "sharpe_ratio": 1.1410609256098951,
+      "sortino_ratio": 0.661817463421938,
+      "win_rate": 1.0,
+      "total_trades": 5,
+      "profit_factor": Infinity,
+      "avg_holding_time": 350.4
+    },
+    "多时间框架策略": {
+      "total_return": -0.23080728566329345,
+      "annual_return": -0.06106950712981629,
+      "max_drawdown": 0.2930371851043551,
+      "sharpe_ratio": -0.3278064042192193,
+      "sortino_ratio": -0.024670633527274482,
+      "win_rate": 0.0,
+      "total_trades": 5,
+      "profit_factor": 0.0,
+      "avg_holding_time": 81.6
+    },
+    "波动率突破策略": {
+      "total_return": 0.19072024164407644,
+      "annual_return": 0.04280789790198325,
+      "max_drawdown": 0.1532372645853089,
+      "sharpe_ratio": 0.2694300736222707,
+      "sortino_ratio": 0.05682736971903642,
+      "win_rate": 0.4,
+      "total_trades": 5,
+      "profit_factor": 1.8403408424223986,
+      "avg_holding_time": 230.4
+    },
+    "趋势反转策略": {
+      "total_return": 0.009109098033260089,
+      "annual_return": 0.0021798520745053285,
+      "max_drawdown": 0.26081727183670533,
+      "sharpe_ratio": 0.07831421031913596,
+      "sortino_ratio": 0.00835450054690635,
+      "win_rate": 0.6,
+      "total_trades": 5,
+      "profit_factor": 1.0349252101638535,
+      "avg_holding_time": 134.4
+    },
+    "组合策略": {
+      "total_return": 6.567737314202652,
+      "annual_return": 0.625801444664762,
+      "max_drawdown": 0.09483493092440848,
+      "sharpe_ratio": 1.2201359880497251,
+      "sortino_ratio": 0.978826371896874,
+      "win_rate": 1.0,
+      "total_trades": 5,
+      "profit_factor": Infinity,
+      "avg_holding_time": 355.2
+    }
+  },
+  "qualified_strategies": [
+    {
+      "name": "组合策略",
+      "total_return": 6.567737314202652,
+      "annual_return": 0.625801444664762,
+      "max_drawdown": 0.09483493092440848,
+      "sharpe_ratio": 1.2201359880497251,
+      "sortino_ratio": 0.978826371896874,
+      "win_rate": 1.0,
+      "total_trades": 5,
+      "profit_factor": Infinity
+    },
+    {
+      "name": "MVRV策略",
+      "total_return": 5.433994637727622,
+      "annual_return": 0.5636579086004772,
+      "max_drawdown": 0.09453843813063594,
+      "sharpe_ratio": 1.1410609256098951,
+      "sortino_ratio": 0.661817463421938,
+      "win_rate": 1.0,
+      "total_trades": 5,
+      "profit_factor": Infinity
+    }
+  ],
+  "best_strategy": {
+    "name": "组合策略",
+    "total_return": 6.567737314202652,
+    "annual_return": 0.625801444664762,
+    "max_drawdown": 0.09483493092440848,
+    "sharpe_ratio": 1.2201359880497251,
+    "sortino_ratio": 0.978826371896874,
+    "win_rate": 1.0,
+    "total_trades": 5,
+    "profit_factor": Infinity
+  },
+  "risk_config": {
+    "max_leverage": 10,
+    "min_leverage": 2,
+    "max_position_size": 0.15,
+    "max_drawdown": 0.3,
+    "stop_loss_pct": 0.05,
+    "take_profit_pct": 0.3,
+    "trailing_stop": true,
+    "trailing_stop_pct": 0.03,
+    "max_daily_trades": 5,
+    "max_open_positions": 3,
+    "risk_per_trade": 0.02
+  }
+}
